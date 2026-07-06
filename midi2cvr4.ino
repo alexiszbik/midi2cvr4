@@ -15,6 +15,8 @@
 #define GATE_LED 6
 #define CC_LED 5
 
+#define GATE_OUT 4
+
 MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI);
 
 Adafruit_MCP4725 adafruit_dac;
@@ -78,6 +80,7 @@ void setup() {
   ccLed.setup();
   pitchLed.setup();
   pinMode(GATE_LED, OUTPUT);
+  pinMode(GATE_OUT, OUTPUT);
   midiLed.setup();
   
   Serial.println("- Arduino Nano R4 - DAC Basic Output Example started...");
@@ -162,6 +165,7 @@ void loop() {
     bool gate = currentVelocity != 0;
     digitalWrite(LED_BUILTIN, gate ? HIGH : LOW);
     digitalWrite(GATE_LED, gate ? HIGH : LOW);
+    digitalWrite(GATE_OUT, gate ? HIGH : LOW);
     needsToUpdate = false;
   }
 
